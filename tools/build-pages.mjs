@@ -11,6 +11,10 @@ const pathRoots = [
   'communities', 'explore', 'funders', 'larp', 'launch', 'leaderboard',
   'settings', 'favicon.ico', 'icon.svg', 'icon.png', 'apple-icon.png'
 ];
+const rootPattern = new RegExp(
+  `(?<![A-Za-z0-9._-])/(${pathRoots.map(value => value.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')).join('|')})(?=[/?#"'\\\\]|$)`,
+  'g'
+);
 
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
@@ -25,9 +29,7 @@ async function rewriteTree(directory) {
     }
     if (!textExtensions.has(path.extname(entry.name).toLowerCase())) continue;
     let content = await readFile(target, 'utf8');
-    for (const rootName of pathRoots) {
-      content = content.replaceAll(`/${rootName}`, `${base}/${rootName}`);
-    }
+    content = content.replace(rootPattern, `${base}/$1`);
     if (entry.name.endsWith('.html')) {
       content = content
         .replaceAll('href="/"', `href="${base}/"`)
