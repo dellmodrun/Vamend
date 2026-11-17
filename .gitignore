@@ -4,3 +4,4 @@ server-error.log
 qa-report.json
 qa-*.png
 _site/
+supabase/.temp/
