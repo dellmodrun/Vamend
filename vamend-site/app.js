@@ -1,5 +1,5 @@
 (() => {
-  const BASE = '/Vamend';
+  const BASE = location.hostname === 'dellmodrun.github.io' ? '/Vamend' : '';
   const X_URL = 'https://x.com/vamendlaunch';
   const CONFIG_URL = 'https://snwthyespgghvvlktyyu.supabase.co/storage/v1/object/public/vamend-config/ca.json';
   const segments = location.pathname.replace(/\/+$/, '').split('/').filter(Boolean);

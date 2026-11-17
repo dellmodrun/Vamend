@@ -10,23 +10,25 @@
   <meta property="og:site_name" content="Vamend">
   <meta property="og:title" content="Vamend — Vampire protection for memecoins">
   <meta property="og:description" content="One market page for every same-name token. Compare developer locks, options and sales side by side.">
-  <meta property="og:image" content="https://dellmodrun.github.io/Vamend/assets/vamend-logo.png">
-  <meta property="og:url" content="https://dellmodrun.github.io/Vamend/">
+  <meta property="og:image" content="https://vamend.fun/assets/vamend-logo.png">
+  <meta property="og:url" content="https://vamend.fun/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Vamend — Vampire protection for memecoins">
   <meta name="twitter:description" content="Same name. Every launch. No place to hide.">
-  <meta name="twitter:image" content="https://dellmodrun.github.io/Vamend/assets/vamend-logo.png">
+  <meta name="twitter:image" content="https://vamend.fun/assets/vamend-logo.png">
   <title>Vamend — Vampire protection for memecoins</title>
-  <link rel="icon" href="/Vamend/assets/vamend-logo.png" type="image/png">
+  <base id="app-base" href="/">
+  <script>document.getElementById('app-base').href = location.hostname === 'dellmodrun.github.io' ? '/Vamend/' : '/';</script>
+  <link rel="icon" href="assets/vamend-logo.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/Vamend/styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div id="app"></div>
   <noscript>Vamend requires JavaScript to render this interface.</noscript>
-  <script src="/Vamend/protocol-client.js" defer></script>
-  <script src="/Vamend/app.js" defer></script>
+  <script src="protocol-client.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>

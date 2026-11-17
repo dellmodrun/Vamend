@@ -14,7 +14,7 @@ for (const file of ['index.html', 'styles.css', 'app.js', 'protocol-client.js', 
 }
 
 for (const [file, terms] of [
-  ['index.html', ['Vamend', '/Vamend/protocol-client.js', '/Vamend/app.js', '/Vamend/styles.css']],
+  ['index.html', ['Vamend', 'protocol-client.js', 'app.js', 'styles.css', 'https://vamend.fun/']],
   ['app.js', ['vamendlaunch', 'Vampire protection', '2% to 10%', 'TBA', 'Choose your wallet', 'Phantom', 'Solflare', 'Backpack', 'Solana mint address', 'Solana Mainnet', 'MAINNET PROGRAM', 'Vamend documentation', 'Option ladder', 'OFFICIAL', 'PINNED', 'data-live-ca']],
   ['protocol-client.js', ['VamendProtocol']],
   ['network.json', ['mainnet', 'https://api.mainnet-beta.solana.com', 'awaiting-mainnet-deployment', 'transactions_enabled']]
