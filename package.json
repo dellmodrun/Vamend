@@ -8,6 +8,7 @@
     "check": "node tools/check.mjs",
     "build:client": "esbuild client/protocol-client.js --bundle --minify --platform=browser --format=iife --global-name=VamendProtocol --outfile=vamend-site/protocol-client.js",
     "build:pages": "npm run build:client && node tools/build-pages.mjs",
+    "render:workflow-video": "node tools/render-workflow-video.mjs",
     "test:browser": "node tools/browser-check.mjs",
     "update:ca": "node tools/update-ca.mjs"
   },
