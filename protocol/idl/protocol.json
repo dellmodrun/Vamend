@@ -1,0 +1,1454 @@
+{
+  "address": "HZa5dYATXsrpcxM2kzHi34AsXtxFiPV7iF9cV4cRg9zc",
+  "metadata": {
+    "name": "protocol",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "buy_option",
+      "discriminator": [
+        242,
+        253,
+        221,
+        183,
+        67,
+        244,
+        140,
+        119
+      ],
+      "accounts": [
+        {
+          "name": "buyer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "launch"
+          ]
+        },
+        {
+          "name": "launch",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  97,
+                  117,
+                  110,
+                  99,
+                  104
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  112,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "launch"
+              },
+              {
+                "kind": "account",
+                "path": "buyer"
+              },
+              {
+                "kind": "arg",
+                "path": "strike_lamports"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "strike_lamports",
+          "type": "u64"
+        },
+        {
+          "name": "quantity",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "claim_forfeiture",
+      "discriminator": [
+        135,
+        42,
+        106,
+        239,
+        153,
+        180,
+        106,
+        60
+      ],
+      "accounts": [
+        {
+          "name": "buyer",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "position"
+          ]
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "launch"
+          ]
+        },
+        {
+          "name": "launch",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  97,
+                  117,
+                  110,
+                  99,
+                  104
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ]
+          },
+          "relations": [
+            "position"
+          ]
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  112,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "launch"
+              },
+              {
+                "kind": "account",
+                "path": "buyer"
+              },
+              {
+                "kind": "account",
+                "path": "position.strike_lamports",
+                "account": "OptionPosition"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "launch"
+              }
+            ]
+          }
+        },
+        {
+          "name": "buyer_tokens",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_market",
+      "discriminator": [
+        103,
+        226,
+        97,
+        235,
+        200,
+        188,
+        251,
+        254
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "canonical_name"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "canonical_name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "exercise_option",
+      "discriminator": [
+        231,
+        98,
+        131,
+        183,
+        245,
+        93,
+        122,
+        48
+      ],
+      "accounts": [
+        {
+          "name": "buyer",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "position"
+          ]
+        },
+        {
+          "name": "developer",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "launch"
+          ]
+        },
+        {
+          "name": "launch",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  97,
+                  117,
+                  110,
+                  99,
+                  104
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ]
+          },
+          "relations": [
+            "position"
+          ]
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  112,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "launch"
+              },
+              {
+                "kind": "account",
+                "path": "buyer"
+              },
+              {
+                "kind": "account",
+                "path": "position.strike_lamports",
+                "account": "OptionPosition"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "launch"
+              }
+            ]
+          }
+        },
+        {
+          "name": "buyer_tokens",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "quantity",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_config",
+      "discriminator": [
+        208,
+        127,
+        21,
+        1,
+        194,
+        190,
+        196,
+        70
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "violation_oracle",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "register_launch",
+      "discriminator": [
+        114,
+        114,
+        67,
+        23,
+        41,
+        70,
+        0,
+        225
+      ],
+      "accounts": [
+        {
+          "name": "developer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "canonical_name"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "launch",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  97,
+                  117,
+                  110,
+                  99,
+                  104
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "launch"
+              }
+            ]
+          }
+        },
+        {
+          "name": "developer_tokens",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "canonical_name",
+          "type": "string"
+        },
+        {
+          "name": "lock_bps",
+          "type": "u16"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "expiry",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "report_violation",
+      "discriminator": [
+        9,
+        194,
+        167,
+        190,
+        60,
+        111,
+        100,
+        85
+      ],
+      "accounts": [
+        {
+          "name": "oracle",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "launch",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  97,
+                  117,
+                  110,
+                  99,
+                  104
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "launch.mint",
+                "account": "ProtectedLaunch"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "evidence",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "settle_expired",
+      "discriminator": [
+        187,
+        68,
+        57,
+        40,
+        121,
+        72,
+        73,
+        161
+      ],
+      "accounts": [
+        {
+          "name": "developer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "launch"
+          ]
+        },
+        {
+          "name": "launch",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  97,
+                  117,
+                  110,
+                  99,
+                  104
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "launch"
+              }
+            ]
+          }
+        },
+        {
+          "name": "developer_tokens",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "update_config",
+      "discriminator": [
+        29,
+        158,
+        252,
+        191,
+        10,
+        83,
+        219,
+        99
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_authority",
+          "type": {
+            "option": "pubkey"
+          }
+        },
+        {
+          "name": "new_violation_oracle",
+          "type": {
+            "option": "pubkey"
+          }
+        },
+        {
+          "name": "paused",
+          "type": {
+            "option": "bool"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "MarketGroup",
+      "discriminator": [
+        131,
+        205,
+        141,
+        87,
+        148,
+        210,
+        33,
+        36
+      ]
+    },
+    {
+      "name": "OptionPosition",
+      "discriminator": [
+        212,
+        247,
+        167,
+        73,
+        56,
+        224,
+        204,
+        102
+      ]
+    },
+    {
+      "name": "ProtectedLaunch",
+      "discriminator": [
+        203,
+        3,
+        53,
+        152,
+        227,
+        3,
+        170,
+        180
+      ]
+    },
+    {
+      "name": "ProtocolConfig",
+      "discriminator": [
+        207,
+        91,
+        250,
+        28,
+        152,
+        179,
+        215,
+        209
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "ConfigUpdated",
+      "discriminator": [
+        40,
+        241,
+        230,
+        122,
+        11,
+        19,
+        198,
+        194
+      ]
+    },
+    {
+      "name": "ForfeitureClaimed",
+      "discriminator": [
+        146,
+        49,
+        174,
+        122,
+        199,
+        108,
+        75,
+        250
+      ]
+    },
+    {
+      "name": "LaunchRegistered",
+      "discriminator": [
+        158,
+        211,
+        66,
+        169,
+        249,
+        238,
+        122,
+        253
+      ]
+    },
+    {
+      "name": "LaunchSettled",
+      "discriminator": [
+        26,
+        88,
+        61,
+        190,
+        120,
+        123,
+        240,
+        48
+      ]
+    },
+    {
+      "name": "MarketCreated",
+      "discriminator": [
+        88,
+        184,
+        130,
+        231,
+        226,
+        84,
+        6,
+        58
+      ]
+    },
+    {
+      "name": "OptionExercised",
+      "discriminator": [
+        34,
+        100,
+        89,
+        14,
+        247,
+        159,
+        22,
+        97
+      ]
+    },
+    {
+      "name": "OptionPurchased",
+      "discriminator": [
+        9,
+        175,
+        211,
+        168,
+        31,
+        202,
+        39,
+        191
+      ]
+    },
+    {
+      "name": "ViolationReported",
+      "discriminator": [
+        237,
+        145,
+        189,
+        249,
+        11,
+        128,
+        155,
+        212
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "The signer is not authorized for this action"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidAuthority",
+      "msg": "An authority or oracle address cannot be the default address"
+    },
+    {
+      "code": 6002,
+      "name": "ProtocolPaused",
+      "msg": "The protocol is paused"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidCanonicalName",
+      "msg": "The canonical market name is invalid"
+    },
+    {
+      "code": 6004,
+      "name": "InvalidLockBps",
+      "msg": "The lock must be between 2% and 10% of total supply"
+    },
+    {
+      "code": 6005,
+      "name": "InvalidLockAmount",
+      "msg": "The deposited amount must exactly match the declared supply lock"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidExpiry",
+      "msg": "The expiry is outside the supported range"
+    },
+    {
+      "code": 6007,
+      "name": "UnsupportedDecimals",
+      "msg": "The token decimals exceed the supported maximum"
+    },
+    {
+      "code": 6008,
+      "name": "InvalidOption",
+      "msg": "The option quantity or strike is invalid"
+    },
+    {
+      "code": 6009,
+      "name": "InsufficientInventory",
+      "msg": "The launch does not have enough unreserved locked tokens"
+    },
+    {
+      "code": 6010,
+      "name": "LaunchNotActive",
+      "msg": "The launch is not active"
+    },
+    {
+      "code": 6011,
+      "name": "OptionExpired",
+      "msg": "The option has expired"
+    },
+    {
+      "code": 6012,
+      "name": "LaunchNotExpired",
+      "msg": "The launch has not expired"
+    },
+    {
+      "code": 6013,
+      "name": "LaunchNotForfeited",
+      "msg": "The launch was not forfeited"
+    },
+    {
+      "code": 6014,
+      "name": "AlreadyClaimed",
+      "msg": "This forfeiture position has already been claimed"
+    },
+    {
+      "code": 6015,
+      "name": "InvalidPosition",
+      "msg": "The option position does not belong to this buyer and launch"
+    },
+    {
+      "code": 6016,
+      "name": "ArithmeticError",
+      "msg": "Arithmetic overflow or loss of precision"
+    }
+  ],
+  "types": [
+    {
+      "name": "ConfigUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "violation_oracle",
+            "type": "pubkey"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ForfeitureClaimed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "launch",
+            "type": "pubkey"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LaunchRegistered",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "launch",
+            "type": "pubkey"
+          },
+          {
+            "name": "market",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "developer",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "lock_bps",
+            "type": "u16"
+          },
+          {
+            "name": "expiry",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LaunchSettled",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "launch",
+            "type": "pubkey"
+          },
+          {
+            "name": "returned_tokens",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LaunchStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Active"
+          },
+          {
+            "name": "Forfeited"
+          },
+          {
+            "name": "Expired"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MarketCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market",
+            "type": "pubkey"
+          },
+          {
+            "name": "payer",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MarketGroup",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "canonical_name",
+            "type": "string"
+          },
+          {
+            "name": "launch_count",
+            "type": "u32"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OptionExercised",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "launch",
+            "type": "pubkey"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "quantity",
+            "type": "u64"
+          },
+          {
+            "name": "exercise_lamports",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OptionPosition",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "launch",
+            "type": "pubkey"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "strike_lamports",
+            "type": "u64"
+          },
+          {
+            "name": "quantity",
+            "type": "u64"
+          },
+          {
+            "name": "premium_paid",
+            "type": "u64"
+          },
+          {
+            "name": "exercised_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "claimed_forfeiture",
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OptionPurchased",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "launch",
+            "type": "pubkey"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "strike_lamports",
+            "type": "u64"
+          },
+          {
+            "name": "quantity",
+            "type": "u64"
+          },
+          {
+            "name": "premium_lamports",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProtectedLaunch",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "developer",
+            "type": "pubkey"
+          },
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "deposited_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "remaining_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "open_option_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "premium_lamports",
+            "type": "u64"
+          },
+          {
+            "name": "expiry",
+            "type": "i64"
+          },
+          {
+            "name": "violation_at",
+            "type": "i64"
+          },
+          {
+            "name": "forfeit_pool_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "forfeit_open_options",
+            "type": "u64"
+          },
+          {
+            "name": "forfeit_claimed_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "forfeit_claimed_options",
+            "type": "u64"
+          },
+          {
+            "name": "violation_evidence",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "lock_bps",
+            "type": "u16"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "LaunchStatus"
+              }
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "vault_bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProtocolConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "violation_oracle",
+            "type": "pubkey"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ViolationReported",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "launch",
+            "type": "pubkey"
+          },
+          {
+            "name": "oracle",
+            "type": "pubkey"
+          },
+          {
+            "name": "evidence",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Vamend Protocol",
+  "description": "Supply-lock and option settlement primitives for the Vamend anti-vampire market.",
+  "notification": "Pre-audit development release. Do not treat this metadata as a mainnet security endorsement.",
+  "project_url": "https://github.com/dellmodrun/Vamend",
+  "contacts": [
+    "twitter:@vamendlaunch"
+  ],
+  "policy": "https://github.com/dellmodrun/Vamend/security/policy",
+  "preferred_languages": [
+    "en"
+  ],
+  "source_code": "https://github.com/dellmodrun/Vamend",
+  "source_release": "v0.1.0",
+  "source_revision": "unreleased",
+  "auditors": [],
+  "version": "0.1.0"
+}

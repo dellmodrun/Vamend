@@ -16,14 +16,14 @@
   const rules = `<div class="right-card"><div class="right-card-head"><small>PROTECTION RULES</small><strong>What Vamend enforces.</strong></div><div class="rule-list">
     <div class="rule"><span class="rule-num">01</span><div><strong>Every clone, one market</strong><p>Same-name tokens are grouped so the market compares developers side by side.</p></div></div>
     <div class="rule"><span class="rule-num">02</span><div><strong>2–10% supply lock</strong><p>Developers lock a visible share of supply and sell options against it.</p></div></div>
-    <div class="rule"><span class="rule-num">03</span><div><strong>Dump before expiry, lose it</strong><p>If the developer sells early, locked supply is forfeited to option holders.</p></div></div>
-    <div class="rule"><span class="rule-num">04</span><div><strong>Fees become buybacks</strong><p>After locked tokens sell out, option fees buy the token from the market.</p></div></div>
+    <div class="rule"><span class="rule-num">03</span><div><strong>Verified dump, lose the lock</strong><p>An oracle-attested developer sale before expiry moves locked supply into forfeiture claims.</p></div></div>
+    <div class="rule"><span class="rule-num">04</span><div><strong>Buyback route is pending</strong><p>Premium-funded market buybacks remain disabled until the DEX execution path is audited.</p></div></div>
   </div></div>`;
 
   const rightRail = `<aside class="right-rail"><div class="right-rail-inner">
     <div class="right-card ca-card"><div class="ca-line"><span>VAMEND CA</span><b data-live-ca>TBA</b></div><div class="coming">The Vamend token has not launched. Ignore any address claiming to be official.</div></div>
     ${rules}<a class="x-button" href="${X_URL}" target="_blank" rel="noreferrer"><span class="x-mark">𝕏</span><span>Follow @vamendlaunch</span></a>
-    <div class="disclaimer">Protocol interface preview. Options and token markets involve risk. Verify contracts and terms before participating.</div>
+    <div class="disclaimer">Devnet beta interface. The Mainnet program is not deployed. Options and token markets involve risk.</div>
   </div></aside>`;
 
   const shell = content => `<div class="shell">
@@ -63,12 +63,12 @@
     <article class="info-card"><span class="kicker">WHAT IS THE VAMPIRE PROBLEM?</span><h3>Copies siphon attention while developer quality stays opaque.</h3><p>Multiple tokens can launch under the same meme name. Without a shared market view, traders compare hype instead of commitments. Vamend places every version together.</p></article><article class="info-card"><span class="kicker">WHAT DOES “PROTECTED” MEAN?</span><h3>A supply lock backs visible option terms.</h3><p>A protected label means the developer locked supply in the Vamend contract and accepted the stated rules. An unlocked token remains listed as unprotected.</p></article><article class="info-card"><span class="kicker">WHAT HAPPENS IF THE DEVELOPER SELLS?</span><h3>The remaining lock is forfeited.</h3><p>If a protected developer sells before expiry, locked supply is confiscated for option holders according to the contract rules.</p></article><article class="info-card"><span class="kicker">IS PROFIT GUARANTEED?</span><h3>No.</h3><p>Options can expire worthless, tokens can lose value and liquidity can disappear. The maximum option loss described here is the premium; token and market risks remain.</p></article>
   </div></section>`;
 
-  const launch = `<section class="page-hero"><div class="eyebrow">Protected launch studio</div><h1>Launch with<br>skin in the game.</h1><p>Create the token profile, set the developer commitment and review the option market before signing.</p><div class="notice">Contracts are not live. The final transaction remains disabled until audited addresses are published.</div></section><section class="section launch-workspace"><div class="launch-progress"><span class="active">1 · Token</span><span>2 · Protection</span><span>3 · Market</span><span>4 · Review</span></div><form class="launch-form" data-launch-form novalidate>
-    <fieldset><legend><span>01</span> Token identity</legend><div class="identity-grid"><label class="upload-zone" data-upload-zone><input type="file" accept="image/png,image/jpeg,image/webp,image/gif" data-token-image><span class="upload-preview" data-upload-preview><b>＋</b><strong>Upload token image</strong><small>PNG, JPG, GIF or WebP · max 5 MB · 1:1 recommended</small></span></label><div class="form-grid"><label><span>Token name *</span><input type="text" name="name" placeholder="Moon" maxlength="32" required data-token-name><small><i data-name-count>0</i>/32</small></label><label><span>Ticker *</span><input type="text" name="ticker" placeholder="MOON" maxlength="10" required data-token-ticker><small><i data-ticker-count>0</i>/10</small></label><label class="wide"><span>Description *</span><textarea name="description" placeholder="Describe the meme, origin and developer commitment." maxlength="280" required data-token-description></textarea><small><i data-description-count>0</i>/280</small></label></div></div></fieldset>
-    <fieldset><legend><span>02</span> Links and launch settings</legend><div class="form-grid"><label><span>Website</span><input type="url" name="website" placeholder="https://"></label><label><span>X account</span><input type="text" name="x" placeholder="@project"></label><label><span>Telegram</span><input type="url" name="telegram" placeholder="https://t.me/"></label><label><span>Launch method</span><select name="method"><option selected>New pump.fun launch</option><option>Register existing mint</option></select></label><label><span>Initial buy</span><div class="input-suffix"><input type="number" min="0" max="100" step="0.1" value="0" name="initialBuy"><b>SOL</b></div></label><label><span>Max slippage</span><select name="slippage"><option>0.5%</option><option selected>1.0%</option><option>2.0%</option><option>5.0%</option></select></label></div></fieldset>
+  const launch = `<section class="page-hero"><div class="eyebrow">Protected registration studio</div><h1>Register with<br>skin in the game.</h1><p>Register an existing Solana mint, lock developer supply and open its same-name protection market.</p><div class="notice">Devnet beta. Transactions are simulated before the wallet is asked to sign. Mainnet stays disabled until the separate Mainnet program is audited and published.</div></section><section class="section launch-workspace"><div class="launch-progress"><span class="active">1 · Mint</span><span>2 · Protection</span><span>3 · Market</span><span>4 · Sign</span></div><form class="launch-form" data-launch-form novalidate>
+    <fieldset><legend><span>01</span> Token identity</legend><div class="identity-grid"><label class="upload-zone" data-upload-zone><input type="file" accept="image/png,image/jpeg,image/webp,image/gif" data-token-image><span class="upload-preview" data-upload-preview><b>＋</b><strong>Optional local preview</strong><small>The on-chain mint remains the source of truth for metadata.</small></span></label><div class="form-grid"><label><span>Canonical meme name *</span><input type="text" name="name" placeholder="moon" maxlength="32" required data-token-name><small><i data-name-count>0</i>/32</small></label><label><span>Ticker</span><input type="text" name="ticker" placeholder="MOON" maxlength="10" data-token-ticker><small><i data-ticker-count>0</i>/10</small></label><label class="wide"><span>Profile note</span><textarea name="description" placeholder="Optional note for your local review." maxlength="280" data-token-description></textarea><small><i data-description-count>0</i>/280</small></label></div></div></fieldset>
+    <fieldset><legend><span>02</span> Existing mint</legend><div class="form-grid"><label class="wide"><span>Solana mint address *</span><input type="text" name="mintAddress" placeholder="Enter the SPL or Token-2022 mint" minlength="32" maxlength="44" required data-mint-address></label><label><span>Registration method</span><select name="method"><option selected>Register existing mint</option></select></label><label><span>Network</span><input value="Solana Devnet beta" disabled></label></div></fieldset>
     <fieldset><legend><span>03</span> Developer protection</legend><div class="range-card"><div class="range-head"><div><b>Supply committed to Vamend</b><p>Locked supply backs the option market.</p></div><strong data-lock-value>6%</strong></div><input type="range" min="2" max="10" value="6" step="1" data-lock-range><div class="range-labels"><span>2% minimum</span><span>10% maximum</span></div></div><div class="form-grid protection-fields"><label><span>Option expiry</span><select name="expiry" data-expiry><option>7 days</option><option selected>14 days</option><option>30 days</option><option>90 days</option></select></label><label><span>Strike ladder</span><select name="ladder"><option selected>Bonding curve · standard</option><option>Bonding curve · concentrated</option></select></label></div><div class="commitment-warning"><b>Early-sale condition</b><p>If the protected developer wallet sells before expiry, remaining locked supply is forfeited to eligible option holders.</p></div></fieldset>
-    <fieldset><legend><span>04</span> Review and sign</legend><div class="review-card"><div class="review-token"><span class="mini-token" data-review-image>?</span><div><b data-review-name>Unnamed token</b><small data-review-ticker>$TICKER</small></div><span class="demo-badge">DRAFT</span></div><div class="review-grid"><div><span>Same-name market</span><b data-review-market>Created after validation</b></div><div><span>Supply lock</span><b data-review-lock>6%</b></div><div><span>Option premium</span><b>10% of strike</b></div><div><span>Expiry</span><b data-review-expiry>14 days</b></div><div><span>Launch fee</span><b>TBA</b></div><div><span>Network</span><b>Solana mainnet</b></div></div></div><label class="terms-check"><input type="checkbox" data-terms><span>I understand that token launches and options involve risk, and that Vamend protection does not guarantee price or liquidity.</span></label><div class="validation-message" data-validation-message>Complete the required fields, upload an image and accept the terms.</div><button class="primary-button full-button" type="button" data-review-launch>Review protected launch</button><p class="form-help">Your wallet will show every transaction before signing. Vamend never takes custody of your wallet.</p></fieldset>
-  </form><aside class="launch-side"><div class="right-card ca-card"><div class="ca-line"><span>CONTRACT STATUS</span><b>TBA</b></div><div class="coming">Launch transactions stay disabled until audited Vamend contracts are published.</div></div><div class="cost-card"><h3>Estimated transaction</h3><div><span>Token creation</span><b>Network quote</b></div><div><span>Vamend lock</span><b data-side-lock>6% supply</b></div><div><span>Option market</span><b>Included</b></div><div><span>Priority fee</span><b>Wallet setting</b></div></div><div class="checklist-card"><h3>Before you launch</h3><p>✓ Image and metadata are permanent</p><p>✓ Developer wallet is monitored</p><p>✓ Same-name tokens share one page</p><p>✓ Early sales trigger forfeiture</p></div></aside></section>`;
+    <fieldset><legend><span>04</span> Review and sign</legend><div class="review-card"><div class="review-token"><span class="mini-token" data-review-image>?</span><div><b data-review-name>Unnamed token</b><small data-review-ticker>$TICKER</small></div><span class="demo-badge">DEVNET</span></div><div class="review-grid"><div><span>Same-name market</span><b data-review-market>Created after validation</b></div><div><span>Supply lock</span><b data-review-lock>6%</b></div><div><span>Option premium</span><b>10% of strike</b></div><div><span>Expiry</span><b data-review-expiry>14 days</b></div><div><span>Protocol fee</span><b>0 SOL</b></div><div><span>Network</span><b>Solana Devnet beta</b></div></div></div><label class="terms-check"><input type="checkbox" data-terms><span>I understand that token launches and options involve risk, and that Vamend protection does not guarantee price or liquidity.</span></label><div class="validation-message" data-validation-message>Enter the canonical name and mint, then accept the risk acknowledgement.</div><button class="primary-button full-button" type="button" data-review-launch>Simulate and register protection</button><p class="form-help">The client checks mint supply and token ownership, simulates the transaction and then asks your wallet to sign.</p></fieldset>
+  </form><aside class="launch-side"><div class="right-card ca-card"><div class="ca-line"><span>DEVNET PROGRAM</span><b data-protocol-status>CHECKING</b></div><div class="coming">Mainnet uses a separate Program ID and remains unavailable until audit completion.</div></div><div class="cost-card"><h3>Transaction contents</h3><div><span>Existing mint</span><b>Verified on-chain</b></div><div><span>Vamend lock</span><b data-side-lock>6% supply</b></div><div><span>Same-name market</span><b>Created if absent</b></div><div><span>Preflight</span><b>Required</b></div></div><div class="checklist-card"><h3>Before you register</h3><p>✓ Mint and supply are read on-chain</p><p>✓ Developer token balance is verified</p><p>✓ Same-name tokens share one PDA</p><p>✓ Early sales can trigger forfeiture</p></div></aside></section>`;
 
   const docs = `<section class="page-hero"><div class="eyebrow">Vamend documentation</div><h1>The protocol,<br>without the fog.</h1><p>Reference material for traders, option holders and developers. Contract addresses, audits and SDK links will appear here when released.</p></section><section class="section"><div class="docs-layout"><nav class="docs-nav"><a href="#overview">Overview</a><a href="#lifecycle">Launch lifecycle</a><a href="#options">Options</a><a href="#penalty">Dev-sale penalty</a><a href="#buybacks">Buybacks</a><a href="#status">Status labels</a><a href="#risk">Risks</a></nav><div class="docs-content"><article id="overview"><span class="kicker">01 · OVERVIEW</span><h2>One market page per meme name</h2><p>All tokens using the same name are grouped together. The page compares developer identity, supply lock, option availability, expiry and observed developer sales.</p></article><article id="lifecycle"><span class="kicker">02 · LAUNCH LIFECYCLE</span><h2>Register, lock, publish, monitor</h2><p>A developer registers a launch, locks 2%–10% of supply in the Vamend contract and publishes option terms. Vamend monitors the protected wallet through expiry.</p></article><article id="options"><span class="kicker">03 · OPTIONS</span><h2>Premium equals 10% of strike</h2><p>Strike levels follow the launch bonding curve. Above strike, holders may exercise into locked developer tokens. Below strike at expiry, the premium is the option holder's maximum option loss.</p></article><article id="penalty"><span class="kicker">04 · DEV-SALE PENALTY</span><h2>Sell early, forfeit the lock</h2><p>If the protected developer sells before expiry, remaining locked supply is distributed to eligible option holders under the contract rules.</p></article><article id="buybacks"><span class="kicker">05 · BUYBACKS</span><h2>Fees recycle into demand</h2><p>After the locked allocation sells out, accumulated option premiums are used to buy the token in the market.</p></article><article id="status"><span class="kicker">06 · STATUS LABELS</span><h2>Protected is specific, not promotional</h2><p><b>Protected</b> means an active verified lock. <b>Unprotected</b> means no verified lock. <b>Forfeited</b> means the early-sale condition triggered. <b>Expired</b> means the option window ended.</p></article><article id="risk"><span class="kicker">07 · RISKS</span><h2>Protection does not guarantee price</h2><p>Tokens can lose value, liquidity can disappear and options can expire worthless. Vamend exposes commitments; it does not remove market risk.</p></article></div></div></section>`;
 
@@ -79,20 +79,17 @@
   document.getElementById('app').innerHTML = shell(pages[page]);
 
   let connectedAddress = '';
-  let connectedProvider = null;
   let tokenImage = null;
   const modal = document.querySelector('[data-wallet-modal]');
   const walletMessage = document.querySelector('[data-wallet-message]');
   const walletButtons = () => [...document.querySelectorAll('[data-wallet-connect]')];
-  const providers = {
-    phantom: () => window.phantom?.solana || (window.solana?.isPhantom ? window.solana : null),
-    solflare: () => window.solflare || (window.solana?.isSolflare ? window.solana : null),
-    backpack: () => window.backpack?.solana || (window.solana?.isBackpack ? window.solana : null)
+  const refreshProviderState = async () => {
+    const wallets = await window.VamendProtocol?.listWallets?.().catch(() => []) || [];
+    ['phantom', 'solflare', 'backpack'].forEach(name => {
+      const label = document.querySelector(`[data-detected="${name}"]`);
+      if (label) label.textContent = wallets.some(wallet => wallet.name.toLowerCase().includes(name)) ? 'Detected' : 'Not installed';
+    });
   };
-  const refreshProviderState = () => Object.entries(providers).forEach(([name, getProvider]) => {
-    const label = document.querySelector(`[data-detected="${name}"]`);
-    if (label) label.textContent = getProvider()?.connect ? 'Detected' : 'Not installed';
-  });
   const showModal = () => { refreshProviderState(); modal.hidden = false; document.body.style.overflow = 'hidden'; };
   const hideModal = () => { modal.hidden = true; document.body.style.overflow = ''; };
   const updateWallet = address => {
@@ -103,25 +100,17 @@
     if (disconnect) disconnect.hidden = false;
   };
   const connectWallet = async name => {
-    const wallet = providers[name]?.();
-    if (!wallet?.connect) {
-      walletMessage.textContent = `${name[0].toUpperCase() + name.slice(1)} is not installed in this browser. Use its official install link below.`;
-      return;
-    }
     try {
-      const result = await wallet.connect();
-      const address = String(result?.publicKey || wallet.publicKey || '');
-      connectedProvider = wallet;
-      if (address) updateWallet(address);
+      const state = await window.VamendProtocol.connect(name);
+      if (state.address) updateWallet(state.address);
       hideModal();
     } catch (error) {
       walletMessage.textContent = error?.message || 'The wallet connection was cancelled.';
     }
   };
   const disconnectWallet = async () => {
-    try { await connectedProvider?.disconnect?.(); } catch {}
+    try { await window.VamendProtocol?.disconnect?.(); } catch {}
     connectedAddress = '';
-    connectedProvider = null;
     walletButtons().forEach(button => button.textContent = button.classList.contains('top-wallet') ? 'Connect wallet' : 'Connect wallet');
     document.querySelector('[data-wallet-disconnect]').hidden = true;
     walletMessage.textContent = 'Wallet disconnected. Choose a wallet to reconnect.';
@@ -131,6 +120,13 @@
   document.querySelector('[data-wallet-disconnect]')?.addEventListener('click', disconnectWallet);
   document.querySelector('[data-modal-close]')?.addEventListener('click', hideModal);
   modal?.addEventListener('click', event => { if (event.target === modal) hideModal(); });
+  window.VamendProtocol?.subscribe?.(state => {
+    if (state.address) updateWallet(state.address);
+    else if (connectedAddress) {
+      connectedAddress = '';
+      walletButtons().forEach(button => button.textContent = 'Connect wallet');
+    }
+  });
 
   const updateLaunchReview = () => {
     const name = document.querySelector('[data-token-name]')?.value.trim() || '';
@@ -176,14 +172,43 @@
   ['dragenter','dragover'].forEach(type => uploadZone?.addEventListener(type, event => { event.preventDefault(); uploadZone.classList.add('dragging'); }));
   ['dragleave','drop'].forEach(type => uploadZone?.addEventListener(type, event => { event.preventDefault(); uploadZone.classList.remove('dragging'); }));
   uploadZone?.addEventListener('drop', event => processImage(event.dataTransfer?.files?.[0]));
-  document.querySelector('[data-review-launch]')?.addEventListener('click', () => {
+  document.querySelector('[data-review-launch]')?.addEventListener('click', async event => {
     const form = document.querySelector('[data-launch-form]'); const message = document.querySelector('[data-validation-message]');
-    const valid = form?.checkValidity() && tokenImage && document.querySelector('[data-terms]')?.checked;
-    if (!valid) { form?.reportValidity(); message.textContent = tokenImage ? 'Complete all required fields and accept the risk acknowledgement.' : 'Upload a token image before continuing.'; message.classList.add('error'); return; }
+    const valid = form?.checkValidity() && document.querySelector('[data-terms]')?.checked;
+    if (!valid) { form?.reportValidity(); message.textContent = 'Enter a valid canonical name and mint address, then accept the risk acknowledgement.'; message.classList.add('error'); return; }
     if (!connectedAddress) { walletMessage.textContent = 'Choose a wallet to review the launch transaction.'; showModal(); return; }
-    message.textContent = 'Draft complete. The launch transaction will unlock when audited Vamend contracts are published.';
-    message.classList.remove('error'); message.classList.add('success');
+    const button = event.currentTarget;
+    button.disabled = true;
+    message.textContent = 'Checking the program, mint and wallet balance…';
+    message.classList.remove('error', 'success');
+    try {
+      const status = await window.VamendProtocol.protocolStatus();
+      if (!status.deployed) throw new Error('The Vamend Devnet program is awaiting deployment. No wallet request was sent.');
+      const expiryText = document.querySelector('[data-expiry]')?.value || '14 days';
+      const result = await window.VamendProtocol.registerExistingMint({
+        canonicalName: document.querySelector('[data-token-name]').value,
+        mintAddress: document.querySelector('[data-mint-address]').value,
+        lockBps: Number(document.querySelector('[data-lock-range]').value) * 100,
+        expiryDays: Number.parseInt(expiryText, 10),
+      });
+      message.textContent = `Protection registered. Transaction: ${result.signature || 'confirmed by wallet'}`;
+      message.classList.add('success');
+    } catch (error) {
+      message.textContent = error?.message || 'The registration transaction failed before confirmation.';
+      message.classList.add('error');
+    } finally {
+      button.disabled = false;
+    }
   });
+  const updateProtocolStatus = async () => {
+    const badge = document.querySelector('[data-protocol-status]');
+    if (!badge) return;
+    try {
+      const status = await window.VamendProtocol.protocolStatus();
+      badge.textContent = status.deployed ? 'LIVE' : 'AWAITING DEPLOY';
+    } catch { badge.textContent = 'RPC UNAVAILABLE'; }
+  };
+  updateProtocolStatus();
   updateLaunchReview();
 
   const marketSearch = document.querySelector('[data-market-search]');

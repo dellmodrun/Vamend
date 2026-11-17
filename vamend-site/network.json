@@ -1,0 +1,6 @@
+{
+  "cluster": "devnet",
+  "rpc_url": "https://api.devnet.solana.com",
+  "program_id": "HZa5dYATXsrpcxM2kzHi34AsXtxFiPV7iF9cV4cRg9zc",
+  "status": "awaiting-devnet-deployment"
+}

@@ -6,7 +6,18 @@
   "description": "Vamend — vampire protection for memecoins",
   "scripts": {
     "check": "node tools/check.mjs",
-    "build:pages": "node tools/build-pages.mjs",
+    "build:client": "esbuild client/protocol-client.js --bundle --minify --platform=browser --format=iife --global-name=VamendProtocol --outfile=vamend-site/protocol-client.js",
+    "build:pages": "npm run build:client && node tools/build-pages.mjs",
+    "test:browser": "node tools/browser-check.mjs",
     "update:ca": "node tools/update-ca.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.12",
+    "playwright-core": "^1.56.1"
+  },
+  "dependencies": {
+    "@solana/kit": "^8.6.0",
+    "@solana/kit-plugin-rpc": "^0.23.0",
+    "@solana/kit-plugin-wallet": "^0.23.0"
   }
 }
