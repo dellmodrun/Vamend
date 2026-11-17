@@ -39,15 +39,18 @@ try {
     await page.waitForFunction(expected => document.querySelector('[data-live-ca]')?.textContent === `${expected.slice(0, 4)}…${expected.slice(-4)}`, process.env.VAMEND_EXPECT_CA);
   }
   await page.waitForTimeout(2200);
-  const result = await page.evaluate(async () => ({
-    title: document.title,
-    mintInput: Boolean(document.querySelector('[data-mint-address]')),
-    walletButtons: document.querySelectorAll('[data-wallet-provider]').length,
-    state: await window.VamendProtocol.getState(),
-    protocolBadge: document.querySelector('[data-protocol-status]')?.textContent,
-    ca: document.querySelector('[data-live-ca]')?.textContent,
-    copyEnabled: !document.querySelector('[data-copy-ca]')?.disabled,
-  }));
+  const result = await page.evaluate(async () => {
+    const copyButton = document.querySelector('[data-copy-ca]');
+    return {
+      title: document.title,
+      mintInput: Boolean(document.querySelector('[data-mint-address]')),
+      walletButtons: document.querySelectorAll('[data-wallet-provider]').length,
+      state: await window.VamendProtocol.getState(),
+      protocolBadge: document.querySelector('[data-protocol-status]')?.textContent,
+      ca: document.querySelector('[data-live-ca]')?.textContent,
+      copyEnabled: Boolean(copyButton && !copyButton.disabled),
+    };
+  });
   result.caPolls = caResponseTimes.length;
   result.caPollIntervalsMs = caResponseTimes.slice(1).map((time, index) => time - caResponseTimes[index]);
   if (!result.title.includes('Vamend')) failures.push('title missing Vamend');
