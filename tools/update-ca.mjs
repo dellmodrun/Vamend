@@ -43,7 +43,12 @@ const bucketResponse = await fetch(`https://${PROJECT_REF}.supabase.co/storage/v
   },
   body: JSON.stringify({ id: BUCKET, name: BUCKET, public: true, file_size_limit: 102400, allowed_mime_types: ['application/json'] })
 });
-if (!bucketResponse.ok && bucketResponse.status !== 409) throw new Error(`Supabase bucket setup failed: ${bucketResponse.status} ${await bucketResponse.text()}`);
+if (!bucketResponse.ok) {
+  const bucketError = await bucketResponse.text();
+  if (bucketResponse.status !== 409 && !bucketError.includes('BucketAlreadyExists')) {
+    throw new Error(`Supabase bucket setup failed: ${bucketResponse.status} ${bucketError}`);
+  }
+}
 
 const response = await fetch(`https://${PROJECT_REF}.supabase.co/storage/v1/object/${BUCKET}/${OBJECT_PATH}`, {
   method: 'POST',
