@@ -1,20 +1,14 @@
-# xxxhub.fun local frontend
+# Vamend
 
-Complete local frontend mirror captured from `https://xxxhub.fun/`.
+Vampire protection for memecoins.
 
-## Run
+Vamend groups every same-name token on one comparison page and makes developer commitments visible: locked supply, option coverage, early sales and protection status.
 
-```powershell
-npm start
-```
-
-Open `http://127.0.0.1:4317/`.
-
-The package contains mirrored pages, Next.js chunks, fonts, images, media and cached public GET responses. The local server serves the packaged copy first and proxies only a missing or live runtime request to the original site.
-
-## Refresh the mirror
+## Commands
 
 ```powershell
-npm run mirror
 npm run check
+npm run build:pages
 ```
+
+The GitHub Pages workflow publishes `_site` to `https://dellmodrun.github.io/Vamend/`.
