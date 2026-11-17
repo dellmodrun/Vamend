@@ -1,6 +1,7 @@
 {
-  "cluster": "devnet",
-  "rpc_url": "https://api.devnet.solana.com",
-  "program_id": "HZa5dYATXsrpcxM2kzHi34AsXtxFiPV7iF9cV4cRg9zc",
-  "status": "awaiting-devnet-deployment"
+  "cluster": "mainnet",
+  "rpc_url": "https://api.mainnet-beta.solana.com",
+  "program_id": null,
+  "status": "awaiting-mainnet-deployment",
+  "transactions_enabled": false
 }

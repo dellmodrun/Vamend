@@ -15,9 +15,9 @@ for (const file of ['index.html', 'styles.css', 'app.js', 'protocol-client.js', 
 
 for (const [file, terms] of [
   ['index.html', ['Vamend', '/Vamend/protocol-client.js', '/Vamend/app.js', '/Vamend/styles.css']],
-  ['app.js', ['vamendlaunch', 'Vampire protection', '2% to 10%', 'TBA', 'Choose your wallet', 'Phantom', 'Solflare', 'Backpack', 'Solana mint address', 'Devnet beta', 'Vamend documentation', 'Option ladder', 'OFFICIAL', 'PINNED', 'data-live-ca']],
+  ['app.js', ['vamendlaunch', 'Vampire protection', '2% to 10%', 'TBA', 'Choose your wallet', 'Phantom', 'Solflare', 'Backpack', 'Solana mint address', 'Solana Mainnet', 'MAINNET PROGRAM', 'Vamend documentation', 'Option ladder', 'OFFICIAL', 'PINNED', 'data-live-ca']],
   ['protocol-client.js', ['VamendProtocol']],
-  ['network.json', ['devnet', 'HZa5dYATXsrpcxM2kzHi34AsXtxFiPV7iF9cV4cRg9zc']]
+  ['network.json', ['mainnet', 'https://api.mainnet-beta.solana.com', 'awaiting-mainnet-deployment', 'transactions_enabled']]
 ]) {
   const content = await readFile(path.join(site, file), 'utf8');
   for (const term of terms) if (!content.includes(term)) failures.push(`${file}: missing ${term}`);
@@ -32,4 +32,4 @@ if (failures.length) {
   console.error(failures.join('\n'));
   process.exit(1);
 }
-console.log('PASS: Vamend Devnet frontend, real wallet client, protected-mint workflow, docs, official market pin, live CA and eight routes verified.');
+console.log('PASS: Vamend Mainnet frontend, guarded wallet client, protected-mint workflow, docs, official market pin, live CA and eight routes verified.');

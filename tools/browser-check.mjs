@@ -42,7 +42,7 @@ try {
   if (!result.title.includes('Vamend')) failures.push('title missing Vamend');
   if (!result.mintInput) failures.push('mint input missing');
   if (result.walletButtons !== 3) failures.push('wallet chooser is incomplete');
-  if (result.state.cluster !== 'devnet') failures.push('network configuration did not load');
+  if (result.state.cluster !== 'mainnet') failures.push('Mainnet network configuration did not load');
   if (result.protocolBadge === 'CHECKING') failures.push('protocol status did not resolve');
   console.log(JSON.stringify(result));
 } finally {

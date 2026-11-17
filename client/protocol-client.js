@@ -87,7 +87,7 @@ async function loadNetwork() {
   const response = await fetch(`${base}/network.json`, { cache: 'no-store' });
   if (!response.ok) throw new Error('Unable to load the verified Vamend network configuration.');
   const config = await response.json();
-  if (!['devnet', 'mainnet'].includes(config.cluster)) throw new Error('Unsupported Vamend network.');
+  if (config.cluster !== 'mainnet') throw new Error('The production Vamend client only supports Solana Mainnet.');
   return config;
 }
 
@@ -96,7 +96,7 @@ async function init() {
   if (!runtimePromise) {
     runtimePromise = (async () => {
       const config = await loadNetwork();
-      const chain = config.cluster === 'mainnet' ? 'solana:mainnet' : 'solana:devnet';
+      const chain = 'solana:mainnet';
       const client = createClient()
         .use(walletSigner({ chain, storageKey: `vamend:${config.cluster}:wallet` }))
         .use(solanaRpc({ rpcUrl: config.rpc_url, skipPreflight: false }));
@@ -104,7 +104,8 @@ async function init() {
         for (const listener of listeners) listener(getWalletState(client, config));
       });
       await client.wallet.whenReady();
-      runtime = { client, config, programAddress: address(config.program_id) };
+      const programAddress = config.program_id ? address(config.program_id) : null;
+      runtime = { client, config, programAddress };
       return runtime;
     })();
   }
@@ -153,13 +154,32 @@ export async function disconnect() {
 
 export async function protocolStatus() {
   const { client, config, programAddress } = await init();
+  if (!programAddress) {
+    return {
+      cluster: config.cluster,
+      deployed: false,
+      programId: '',
+      status: config.status,
+      transactionsEnabled: false,
+    };
+  }
   const account = await client.rpc.getAccountInfo(programAddress, { encoding: 'base64' }).send();
-  return { cluster: config.cluster, deployed: Boolean(account.value), programId: programAddress };
+  const deployed = Boolean(account.value);
+  return {
+    cluster: config.cluster,
+    deployed,
+    programId: programAddress,
+    status: config.status,
+    transactionsEnabled: deployed && config.transactions_enabled === true,
+  };
 }
 
 export async function registerExistingMint({ canonicalName, mintAddress, lockBps, expiryDays }) {
   const { client, config, programAddress } = await init();
-  if (config.cluster !== 'devnet' && config.cluster !== 'mainnet') throw new Error('Transactions are disabled for this network.');
+  if (config.cluster !== 'mainnet') throw new Error('Vamend registration is configured for Solana Mainnet only.');
+  if (!programAddress || config.transactions_enabled !== true) {
+    throw new Error('The verified Vamend Mainnet program is awaiting deployment. No wallet request was sent.');
+  }
   const connected = client.wallet.getState().connected;
   if (!connected) throw new Error('Connect a Solana wallet first.');
   const signer = connected.signer;

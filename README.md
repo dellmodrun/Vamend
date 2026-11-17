@@ -16,7 +16,7 @@ The GitHub Pages workflow publishes `_site` to `https://dellmodrun.github.io/Vam
 
 ## Protocol status
 
-The repository now contains the Anchor protocol and a Solana Kit browser client. The client is configured for Devnet and Mainnet remains intentionally disabled until the separate Mainnet Program ID, multisig upgrade authority and external audit are ready.
+The repository contains the Anchor protocol and a Solana Kit browser client. The frontend is configured for Solana Mainnet, while transaction submission remains disabled until the verified Mainnet Program ID is deployed and added to `vamend-site/network.json`.
 
 ```powershell
 npm ci
