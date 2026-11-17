@@ -15,7 +15,7 @@ for (const file of ['index.html', 'styles.css', 'app.js', 'assets/vamend-logo.pn
 
 for (const [file, terms] of [
   ['index.html', ['Vamend', '/Vamend/app.js', '/Vamend/styles.css']],
-  ['app.js', ['vamendlaunch', 'Vampire protection', '2% to 10%', 'TBA']]
+  ['app.js', ['vamendlaunch', 'Vampire protection', '2% to 10%', 'TBA', 'Connect wallet', 'Launch protected token', 'Vamend documentation', 'Option ladder']]
 ]) {
   const content = await readFile(path.join(site, file), 'utf8');
   for (const term of terms) if (!content.includes(term)) failures.push(`${file}: missing ${term}`);
@@ -30,4 +30,4 @@ if (failures.length) {
   console.error(failures.join('\n'));
   process.exit(1);
 }
-console.log('PASS: clean Vamend site, six routes, logo, X link and TBA state verified.');
+console.log('PASS: Vamend product frontend, eight routes, wallet, launch, docs, market, logo, X link and TBA state verified.');

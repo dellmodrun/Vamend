@@ -1,13 +1,14 @@
 (() => {
   const BASE = '/Vamend';
   const X_URL = 'https://x.com/vamendlaunch';
-  const path = location.pathname.replace(/\/+$/, '').split('/').pop();
-  const page = ['markets', 'protection', 'compare', 'developers', 'learn'].includes(path) ? path : 'home';
+  const segments = location.pathname.replace(/\/+$/, '').split('/').filter(Boolean);
+  const path = segments.at(-1);
+  const page = segments.includes('market') ? 'market' : ['markets', 'protection', 'compare', 'developers', 'docs', 'launch'].includes(path) ? path : 'home';
   const nav = [
     ['home', '⌂', 'Overview'], ['markets', '≋', 'Markets'], ['protection', '◇', 'Protection'],
-    ['compare', '⇄', 'Compare'], ['developers', '◎', 'Developers'], ['learn', '?', 'Learn']
+    ['compare', '⇄', 'Compare'], ['developers', '◎', 'Developers'], ['docs', '≡', 'Docs']
   ];
-  const pageNames = { home: 'Overview', markets: 'Same-name markets', protection: 'Protection mechanics', compare: 'Developer comparison', developers: 'For developers', learn: 'How it works' };
+  const pageNames = { home: 'Overview', markets: 'Same-name markets', protection: 'Protection mechanics', compare: 'Developer comparison', developers: 'For developers', docs: 'Documentation', launch: 'Launch protected token', market: '$MOON market' };
   const route = key => key === 'home' ? `${BASE}/` : `${BASE}/${key}/`;
   const navHtml = nav.map(([key, icon, label]) => `<a class="nav-link ${page === key ? 'active' : ''}" href="${route(key)}"><span class="nav-icon">${icon}</span><span class="nav-label">${label}</span></a>`).join('');
 
@@ -25,11 +26,11 @@
   </div></aside>`;
 
   const shell = content => `<div class="shell">
-    <aside class="left-rail"><a class="brand" href="${BASE}/"><img src="${BASE}/assets/vamend-logo.png" alt="Vamend logo"><span class="brand-copy"><span class="brand-word">VAMEND</span><span class="brand-tag">VAMPIRE PROTECTION</span></span></a><nav class="nav">${navHtml}</nav><a class="x-button" href="${X_URL}" target="_blank" rel="noreferrer"><span class="x-mark">𝕏</span><span>Follow Vamend</span></a><div class="rail-note"><strong>Stop feeding vampires.</strong><span>Same name · every launch</span></div></aside>
-    <main class="main"><header class="topbar"><span class="topbar-title"><a class="mobile-brand" href="${BASE}/"><img src="${BASE}/assets/vamend-logo.png" alt="Vamend"></a><span class="page-name">${pageNames[page]}</span></span><span class="status-row"><span class="status-pill">NETWORK <b>SOLANA</b></span><span class="status-pill">CA <b>TBA</b></span></span></header>${content}</main>${rightRail}
-  </div><nav class="mobile-nav">${nav.slice(0, 5).map(([key,,label]) => `<a class="${page === key ? 'active' : ''}" href="${route(key)}">${label}</a>`).join('')}</nav>`;
+    <aside class="left-rail"><a class="brand" href="${BASE}/"><img src="${BASE}/assets/vamend-logo.png" alt="Vamend logo"><span class="brand-copy"><span class="brand-word">VAMEND</span><span class="brand-tag">VAMPIRE PROTECTION</span></span></a><nav class="nav">${navHtml}</nav><div class="rail-actions"><a class="primary-button rail-launch" href="${route('launch')}">＋ Launch token</a><button class="wallet-button" type="button" data-wallet-connect>Connect wallet</button></div><div class="rail-note"><strong>Stop feeding vampires.</strong><span>Same name · every launch</span></div></aside>
+    <main class="main"><header class="topbar"><span class="topbar-title"><a class="mobile-brand" href="${BASE}/"><img src="${BASE}/assets/vamend-logo.png" alt="Vamend"></a><span class="page-name">${pageNames[page]}</span></span><span class="status-row"><span class="status-pill">CA <b>TBA</b></span><button class="wallet-button top-wallet" type="button" data-wallet-connect>Connect wallet</button></span></header>${content}</main>${rightRail}
+  </div><nav class="mobile-nav">${[['home','Overview'],['markets','Markets'],['launch','Launch'],['docs','Docs'],['developers','Dev']].map(([key,label]) => `<a class="${page === key ? 'active' : ''}" href="${route(key)}">${label}</a>`).join('')}</nav><div class="modal-backdrop" data-wallet-modal hidden><div class="wallet-modal" role="dialog" aria-modal="true"><button class="modal-close" type="button" data-modal-close>×</button><span class="eyebrow">SOLANA WALLET</span><h2>Connect to Vamend</h2><p data-wallet-message>Choose an installed Solana wallet to continue.</p><button class="primary-button modal-wallet" type="button" data-provider-connect>Connect browser wallet</button><a class="secondary-button" href="https://phantom.app/" target="_blank" rel="noreferrer">Install Phantom ↗</a><small>Vamend never asks for your seed phrase.</small></div></div>`;
 
-  const compareTable = `<div class="compare-card"><div class="compare-title"><strong>$MOON — same-name launches</strong><span class="demo-badge">EXAMPLE MARKET</span></div><div class="table-wrap"><table>
+  const compareTable = `<div class="compare-card"><div class="compare-title"><strong>$MOON — same-name launches</strong><span><span class="demo-badge">EXAMPLE MARKET</span> <a class="table-link" href="${BASE}/market/moon/">Open market →</a></span></div><div class="table-wrap"><table>
     <thead><tr><th>Developer</th><th>Supply lock</th><th>Options</th><th>Dev sales</th><th>Status</th></tr></thead><tbody>
     <tr><td><span class="dev"><span class="avatar">A</span>Developer A</span></td><td class="lock">10% locked</td><td>Live</td><td>None</td><td class="lock">Protected</td></tr>
     <tr><td><span class="dev"><span class="avatar">B</span>Developer B</span></td><td class="lock">4% locked</td><td>Live</td><td>None</td><td class="lock">Protected</td></tr>
@@ -59,7 +60,51 @@
     <article class="info-card"><span class="kicker">WHAT IS THE VAMPIRE PROBLEM?</span><h3>Copies siphon attention while developer quality stays opaque.</h3><p>Multiple tokens can launch under the same meme name. Without a shared market view, traders compare hype instead of commitments. Vamend places every version together.</p></article><article class="info-card"><span class="kicker">WHAT DOES “PROTECTED” MEAN?</span><h3>A supply lock backs visible option terms.</h3><p>A protected label means the developer locked supply in the Vamend contract and accepted the stated rules. An unlocked token remains listed as unprotected.</p></article><article class="info-card"><span class="kicker">WHAT HAPPENS IF THE DEVELOPER SELLS?</span><h3>The remaining lock is forfeited.</h3><p>If a protected developer sells before expiry, locked supply is confiscated for option holders according to the contract rules.</p></article><article class="info-card"><span class="kicker">IS PROFIT GUARANTEED?</span><h3>No.</h3><p>Options can expire worthless, tokens can lose value and liquidity can disappear. The maximum option loss described here is the premium; token and market risks remain.</p></article>
   </div></section>`;
 
-  const pages = { home, markets, protection, compare, developers, learn };
+  const launch = `<section class="page-hero"><div class="eyebrow">Protected launch studio</div><h1>Launch with<br>skin in the game.</h1><p>Register a token, choose a 2%–10% developer lock and preview the option market that will sit beside every same-name launch.</p><div class="notice">Contracts are not live. This production-ready interface is in read-only preview until official contract addresses are published.</div></section><section class="section"><form class="launch-form" data-launch-form><div class="form-grid"><label><span>Token name</span><input type="text" placeholder="Moon" required></label><label><span>Ticker</span><input type="text" placeholder="MOON" maxlength="10" required></label><label class="wide"><span>Token mint or pump.fun URL</span><input type="text" placeholder="Paste the Solana mint address" required></label><label><span>Supply lock</span><select><option>2%</option><option>4%</option><option selected>6%</option><option>8%</option><option>10%</option></select></label><label><span>Option expiry</span><select><option>7 days</option><option selected>14 days</option><option>30 days</option></select></label></div><div class="launch-preview"><div><span>Developer commitment</span><b>6% supply</b></div><div><span>Option premium</span><b>10% of strike</b></div><div><span>Early sale rule</span><b>Lock forfeited</b></div></div><button class="primary-button full-button" type="button" data-wallet-connect>Connect wallet to continue</button><p class="form-help">No transaction will be requested before contracts are live and verified.</p></form></section>`;
+
+  const docs = `<section class="page-hero"><div class="eyebrow">Vamend documentation</div><h1>The protocol,<br>without the fog.</h1><p>Reference material for traders, option holders and developers. Contract addresses, audits and SDK links will appear here when released.</p></section><section class="section"><div class="docs-layout"><nav class="docs-nav"><a href="#overview">Overview</a><a href="#lifecycle">Launch lifecycle</a><a href="#options">Options</a><a href="#penalty">Dev-sale penalty</a><a href="#buybacks">Buybacks</a><a href="#status">Status labels</a><a href="#risk">Risks</a></nav><div class="docs-content"><article id="overview"><span class="kicker">01 · OVERVIEW</span><h2>One market page per meme name</h2><p>All tokens using the same name are grouped together. The page compares developer identity, supply lock, option availability, expiry and observed developer sales.</p></article><article id="lifecycle"><span class="kicker">02 · LAUNCH LIFECYCLE</span><h2>Register, lock, publish, monitor</h2><p>A developer registers a launch, locks 2%–10% of supply in the Vamend contract and publishes option terms. Vamend monitors the protected wallet through expiry.</p></article><article id="options"><span class="kicker">03 · OPTIONS</span><h2>Premium equals 10% of strike</h2><p>Strike levels follow the launch bonding curve. Above strike, holders may exercise into locked developer tokens. Below strike at expiry, the premium is the option holder's maximum option loss.</p></article><article id="penalty"><span class="kicker">04 · DEV-SALE PENALTY</span><h2>Sell early, forfeit the lock</h2><p>If the protected developer sells before expiry, remaining locked supply is distributed to eligible option holders under the contract rules.</p></article><article id="buybacks"><span class="kicker">05 · BUYBACKS</span><h2>Fees recycle into demand</h2><p>After the locked allocation sells out, accumulated option premiums are used to buy the token in the market.</p></article><article id="status"><span class="kicker">06 · STATUS LABELS</span><h2>Protected is specific, not promotional</h2><p><b>Protected</b> means an active verified lock. <b>Unprotected</b> means no verified lock. <b>Forfeited</b> means the early-sale condition triggered. <b>Expired</b> means the option window ended.</p></article><article id="risk"><span class="kicker">07 · RISKS</span><h2>Protection does not guarantee price</h2><p>Tokens can lose value, liquidity can disappear and options can expire worthless. Vamend exposes commitments; it does not remove market risk.</p></article></div></div></section>`;
+
+  const market = `<section class="market-head"><div><span class="eyebrow">EXAMPLE SAME-NAME MARKET</span><div class="token-title"><span class="token-orb">M</span><div><h1>$MOON</h1><p>3 launches · Solana</p></div></div></div><div class="market-price"><span>REFERENCE PRICE</span><b>$0.000042</b><em>+18.4%</em></div></section><section class="section"><div class="chart-card"><div class="chart-toolbar"><span>Price / bonding curve</span><div><button class="active">1H</button><button>1D</button><button>1W</button><button>ALL</button></div></div><svg class="market-chart" viewBox="0 0 720 230" role="img" aria-label="Example market price chart"><defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5a00" stop-opacity=".38"/><stop offset="1" stop-color="#ff5a00" stop-opacity="0"/></linearGradient></defs><path class="grid-line" d="M0 55H720M0 115H720M0 175H720"/><path fill="url(#area)" d="M0 202L0 180L55 167L110 174L165 142L220 151L275 118L330 126L385 91L440 102L495 72L550 82L605 43L660 58L720 22L720 202Z"/><path class="price-line" d="M0 180L55 167L110 174L165 142L220 151L275 118L330 126L385 91L440 102L495 72L550 82L605 43L660 58L720 22"/></svg><div class="chart-caption"><span>Example data</span><span>Not a live quote</span></div></div></section><section class="section"><div class="section-heading"><div><h2>Developer launches</h2><p>Same meme, different commitments.</p></div></div>${compareTable}</section><section class="section"><div class="section-heading"><div><h2>Option ladder</h2><p>Premium is 10% of strike. Example values only.</p></div></div><div class="option-grid"><article><span>STRIKE</span><b>0.50 SOL</b><p>Premium 0.05 SOL</p><button data-trade-disabled>Buy option</button></article><article class="featured"><span>STRIKE</span><b>1.00 SOL</b><p>Premium 0.10 SOL</p><button data-trade-disabled>Buy option</button></article><article><span>STRIKE</span><b>2.00 SOL</b><p>Premium 0.20 SOL</p><button data-trade-disabled>Buy option</button></article></div></section><section class="section"><div class="activity-list"><div><span>Developer A</span><b class="lock">10% lock active</b><time>Expires in 13d 08h</time></div><div><span>Protected wallet</span><b>No sales detected</b><time>Checked 18s ago</time></div><div><span>Buyback reserve</span><b>0.00 SOL</b><time>Activates after sell-out</time></div></div></section>`;
+
+  const pages = { home, markets, protection, compare, developers, docs, launch, market };
   document.title = `${pageNames[page]} — Vamend`;
   document.getElementById('app').innerHTML = shell(pages[page]);
+
+  let connectedAddress = '';
+  const modal = document.querySelector('[data-wallet-modal]');
+  const walletMessage = document.querySelector('[data-wallet-message]');
+  const walletButtons = () => [...document.querySelectorAll('[data-wallet-connect]')];
+  const showModal = () => { modal.hidden = false; document.body.style.overflow = 'hidden'; };
+  const hideModal = () => { modal.hidden = true; document.body.style.overflow = ''; };
+  const provider = () => window.phantom?.solana || window.solana || window.solflare;
+  const updateWallet = address => {
+    connectedAddress = address;
+    const short = `${address.slice(0, 4)}…${address.slice(-4)}`;
+    walletButtons().forEach(button => button.textContent = short);
+  };
+  const connectWallet = async () => {
+    const wallet = provider();
+    if (!wallet?.connect) {
+      walletMessage.textContent = 'No supported Solana wallet was detected. Install Phantom or Solflare, then refresh this page.';
+      showModal();
+      return;
+    }
+    try {
+      const result = await wallet.connect();
+      const address = String(result?.publicKey || wallet.publicKey || '');
+      if (address) updateWallet(address);
+      hideModal();
+    } catch (error) {
+      walletMessage.textContent = error?.message || 'The wallet connection was cancelled.';
+      showModal();
+    }
+  };
+  walletButtons().forEach(button => button.addEventListener('click', connectWallet));
+  document.querySelector('[data-provider-connect]')?.addEventListener('click', connectWallet);
+  document.querySelector('[data-modal-close]')?.addEventListener('click', hideModal);
+  modal?.addEventListener('click', event => { if (event.target === modal) hideModal(); });
+  document.querySelectorAll('[data-trade-disabled]').forEach(button => button.addEventListener('click', () => {
+    walletMessage.textContent = connectedAddress ? 'Trading opens after the verified Vamend contracts are published.' : 'Connect a Solana wallet first. Trading opens after contracts are published.';
+    showModal();
+  }));
 })();

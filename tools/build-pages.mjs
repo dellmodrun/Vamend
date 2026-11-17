@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = path.resolve(import.meta.dirname, '..');
 const source = path.join(root, 'vamend-site');
 const output = path.join(root, '_site');
-const routes = ['markets', 'protection', 'compare', 'developers', 'learn'];
+const routes = ['markets', 'protection', 'compare', 'developers', 'docs', 'launch', 'market/moon'];
 
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
