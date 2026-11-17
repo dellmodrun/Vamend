@@ -1,0 +1,15 @@
+{
+  "name": "xxxhub-local",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Complete local frontend mirror of xxxhub.fun",
+  "scripts": {
+    "mirror": "node tools/mirror.mjs",
+    "refresh:html": "node tools/refresh-html.mjs",
+    "start": "node tools/server.mjs",
+    "check": "node tools/check.mjs",
+    "qa": "node tools/qa.mjs",
+    "build:pages": "node tools/build-pages.mjs"
+  }
+}
