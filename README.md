@@ -9,6 +9,7 @@ Vamend groups every same-name token on one comparison page and makes developer c
 ```powershell
 npm run check
 npm run build:pages
+npm run update:ca -- tba
 ```
 
 The GitHub Pages workflow publishes `_site` to `https://dellmodrun.github.io/Vamend/`.

@@ -6,6 +6,7 @@
   "description": "Vamend — vampire protection for memecoins",
   "scripts": {
     "check": "node tools/check.mjs",
-    "build:pages": "node tools/build-pages.mjs"
+    "build:pages": "node tools/build-pages.mjs",
+    "update:ca": "node tools/update-ca.mjs"
   }
 }

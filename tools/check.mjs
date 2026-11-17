@@ -15,7 +15,7 @@ for (const file of ['index.html', 'styles.css', 'app.js', 'assets/vamend-logo.pn
 
 for (const [file, terms] of [
   ['index.html', ['Vamend', '/Vamend/app.js', '/Vamend/styles.css']],
-  ['app.js', ['vamendlaunch', 'Vampire protection', '2% to 10%', 'TBA', 'Connect wallet', 'Launch protected token', 'Vamend documentation', 'Option ladder']]
+  ['app.js', ['vamendlaunch', 'Vampire protection', '2% to 10%', 'TBA', 'Choose your wallet', 'Phantom', 'Solflare', 'Backpack', 'Upload token image', 'Initial buy', 'Vamend documentation', 'Option ladder', 'OFFICIAL', 'PINNED', 'data-live-ca']]
 ]) {
   const content = await readFile(path.join(site, file), 'utf8');
   for (const term of terms) if (!content.includes(term)) failures.push(`${file}: missing ${term}`);
@@ -30,4 +30,4 @@ if (failures.length) {
   console.error(failures.join('\n'));
   process.exit(1);
 }
-console.log('PASS: Vamend product frontend, eight routes, wallet, launch, docs, market, logo, X link and TBA state verified.');
+console.log('PASS: Vamend final frontend, launch workflow, image upload, wallet chooser, docs, official market pin, live CA and eight routes verified.');
