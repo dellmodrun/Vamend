@@ -20,7 +20,7 @@ const out=v=>1-Math.pow(1-clamp(v),3);
 const lerp=(a,b,t)=>a+(b-a)*t;
 const alpha=(a,fn)=>{x.save();x.globalAlpha=a;fn();x.restore()};
 function rr(px,py,w,h,r,fill,stroke){x.beginPath();x.roundRect(px,py,w,h,r);if(fill){x.fillStyle=fill;x.fill()}if(stroke){x.strokeStyle=stroke;x.lineWidth=2;x.stroke()}}
-function text(s,px,py,size=32,color=CREAM,weight=500,align='left',family='Arial'){x.fillStyle=color;x.font=`${weight} ${size}px ${family}`;x.textAlign=align;x.textBaseline='alphabetic';x.fillText(s,px,py)}
+function text(s,px,py,size=32,color=CREAM,weight=500,align='left',family='Segoe UI'){x.fillStyle=color;x.font=`${weight} ${size}px ${family}`;x.textAlign=align;x.textBaseline='alphabetic';x.fillText(s,px,py)}
 function mono(s,px,py,size=18,color=MUTED,align='left'){text(s,px,py,size,color,600,align,'Consolas')}
 function line(x1,y1,x2,y2,color='#29292c',w=2){x.beginPath();x.moveTo(x1,y1);x.lineTo(x2,y2);x.strokeStyle=color;x.lineWidth=w;x.stroke()}
 function token(px,py,r,label,color=ORANGE){x.beginPath();x.arc(px,py,r,0,Math.PI*2);x.fillStyle=color;x.fill();text(label,px,py+r*.28,r*.85,INK,800,'center')}
@@ -28,10 +28,11 @@ function background(t){
   const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,'#09090a');g.addColorStop(.55,'#101012');g.addColorStop(1,'#080809');x.fillStyle=g;x.fillRect(0,0,W,H);
   const glow=x.createRadialGradient(1500+Math.sin(t*.4)*100,160,20,1500,160,850);glow.addColorStop(0,'rgba(255,90,0,.17)');glow.addColorStop(1,'rgba(255,90,0,0)');x.fillStyle=glow;x.fillRect(0,0,W,H);
   x.save();x.globalAlpha=.12;x.strokeStyle='#555158';x.lineWidth=1;const off=(t*18)%64;for(let i=-H;i<W;i+=64){line(i+off,0,i-H+off,H,'#4c484d',1)}for(let i=0;i<W+H;i+=64){line(i-off,0,i+H-off,H,'#242326',1)}x.restore();
+  for(let i=0;i<20;i++){const px=(i*311+t*(9+i%4)*8)%(W+120)-60,py=120+((i*173)%780)+Math.sin(t*.7+i)*18;alpha(.12+(i%3)*.04,()=>{x.beginPath();x.arc(px,py,1.5+(i%2),0,Math.PI*2);x.fillStyle=i%4===0?ORANGE:'#d8d0ca';x.fill()})}
   mono('VAMEND / WORKFLOW',72,72,18,'#777176');mono('SOLANA MAINNET',W-72,72,18,'#777176','right');
 }
 function progress(t){const p=clamp(t/28);x.fillStyle='#232326';x.fillRect(72,H-54,W-144,3);x.fillStyle=ORANGE;x.fillRect(72,H-54,(W-144)*p,3);mono(String(Math.min(6,Math.floor(t/4)+1)).padStart(2,'0')+' / 06',W-72,H-28,15,'#767176','right')}
-function sceneTitle(kicker,headline,body,a){alpha(a,()=>{mono(kicker,96,176,18,ORANGE);text(headline,96,270,72,CREAM,750);text(body,98,330,25,MUTED,400)})}
+function sceneTitle(kicker,headline,body,a){const dy=(1-a)*24;alpha(a,()=>{mono(kicker,96,176+dy,18,ORANGE);text(headline,96,270+dy,72,CREAM,750);text(body,98,330+dy,25,MUTED,400)})}
 function logoScene(t){const a=sm(t/.8)*sm((3-t)/.55);const s=lerp(.84,1,out(t/2.4));alpha(a,()=>{
   x.save();x.translate(W/2,H/2-70);x.scale(s,s);x.beginPath();x.roundRect(-210,-210,420,420,54);x.clip();x.drawImage(logo,-210,-210,420,420);x.restore();
   mono('VAMPIRE PROTECTION FOR MEMECOINS',W/2,760,20,ORANGE,'center');text('Same name. Every launch.',W/2,838,58,CREAM,750,'center');text('No place to hide.',W/2,902,58,ORANGE,750,'center');
@@ -63,7 +64,9 @@ function finalScene(t){const q=t-23,a=sm(q/.7)*sm((28-t)/.75);alpha(a,()=>{
   rr(642,604,430,72,36,ORANGE);text('Explore Vamend',857,652,23,INK,750,'center');mono('@VAMENDLAUNCH',642,744,18,CREAM);mono('SOLANA MAINNET INTERFACE',642,786,15,MUTED);
   const sweep=out(q/4);line(640,860,lerp(640,1720,sweep),860,ORANGE,4);text('VAMPIRE PROTECTION',1720,922,23,ORANGE,700,'right');
 })}
-window.render=(t)=>{background(t);if(t<3)logoScene(t);else if(t<7)groupScene(t);else if(t<11)compareScene(t);else if(t<15)lockScene(t);else if(t<19)optionScene(t);else if(t<23)forfeitScene(t);else finalScene(t);progress(t)};
+function transitionWipe(t){for(const [index,b] of [3,7,11,15,19,23].entries()){const p=(t-(b-.32))/.64;if(p<=0||p>=1)continue;const e=p<.5?out(p*2):out((p-.5)*2);x.save();x.shadowColor='rgba(255,90,0,.55)';x.shadowBlur=50;x.fillStyle=ORANGE;if(p<.5)x.fillRect(0,0,W*e,H);else x.fillRect(W*e,0,W*(1-e),H);x.restore();if(Math.abs(p-.5)<.16){alpha(1-Math.abs(p-.5)/.16,()=>{mono(String(index+1).padStart(2,'0'),W/2,H/2+16,34,INK,'center')})}}}
+function scan(t){const px=(t*230)%W;const g=x.createLinearGradient(px-160,0,px+160,0);g.addColorStop(0,'rgba(255,90,0,0)');g.addColorStop(.5,'rgba(255,90,0,.035)');g.addColorStop(1,'rgba(255,90,0,0)');x.fillStyle=g;x.fillRect(px-160,0,320,H)}
+window.render=(t)=>{background(t);scan(t);if(t<3)logoScene(t);else if(t<7)groupScene(t);else if(t<11)compareScene(t);else if(t<15)lockScene(t);else if(t<19)optionScene(t);else if(t<23)forfeitScene(t);else finalScene(t);transitionWipe(t);progress(t)};
 </script>
 </body>
 </html>
