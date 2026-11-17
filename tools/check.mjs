@@ -5,7 +5,7 @@ const root = path.resolve(import.meta.dirname, '..');
 const site = path.join(root, 'vamend-site');
 const failures = [];
 
-for (const file of ['index.html', 'styles.css', 'app.js', 'assets/vamend-logo.png']) {
+for (const file of ['index.html', 'styles.css', 'app.js', 'assets/vamend-logo.png', 'assets/wallets/phantom.svg', 'assets/wallets/solflare.svg', 'assets/wallets/backpack.svg']) {
   const target = path.join(site, file);
   try {
     await access(target);
